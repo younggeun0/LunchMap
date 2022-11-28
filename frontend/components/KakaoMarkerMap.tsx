@@ -1,36 +1,49 @@
+import dayjs from 'dayjs'
 import Head from 'next/head'
 import React, {useEffect} from 'react'
 
-export default function KakaoMarkerMap() {
+export default function KakaoMarkerMap({data}: any) {
   useEffect(() => {
     const maps = window.kakao.maps
     const mapContainer = document.getElementById('map'), // 지도를 표시할 div
       mapOption = {
-        center: new maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new maps.LatLng(37.49649204, 127.02969595), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
       }
 
-    const map = new maps.Map(mapContainer, mapOption) // 지도를 생성합니다
+    const map = new maps.Map(mapContainer, mapOption) // 지도를 생성
 
-    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다
-    const positions = [
-      {
-        content: '<div>카카오</div>',
-        latlng: new maps.LatLng(33.450705, 126.570677),
-      },
-      {
-        content: '<div>생태연못</div>',
-        latlng: new maps.LatLng(33.450936, 126.569477),
-      },
-      {
-        content: '<div>텃밭</div>',
-        latlng: new maps.LatLng(33.450879, 126.56994),
-      },
-      {
-        content: '<div>근린공원</div>',
-        latlng: new maps.LatLng(33.451393, 126.570738),
-      },
-    ]
+    // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열
+    const positions = data.map((info: any) => {
+      const averageRating =
+        info.review_set.reduce((acc: any, cur: any) => {
+          return acc + cur.rating
+        }, 0) / info.review_set.length
+
+      const reviewDiv = info.review_set
+        ? info.review_set.reduce((acc: string, review: any) => {
+            return (
+              acc +
+              `<div class="pb-2 px-2 d-flex justify-content-between">
+                <div class="d-flex">
+                  ${review.commenter}: ${review.comment} 
+                </div>
+                <div class="d-flex">
+                  <small>${dayjs(review.created_at).format('YYYY-MM-DD')}</small>
+                </div>
+              </div>`
+            )
+          }, '')
+        : ''
+
+      return {
+        content:
+          `<div class="p-3 text-center" style="min-width:300px;">
+            ${info.name} ${averageRating}점
+          </div>` + reviewDiv,
+        latlng: new maps.LatLng(info.latitude, info.longitude),
+      }
+    })
 
     for (let i = 0; i < positions.length; i++) {
       // 마커를 생성합니다
@@ -56,9 +69,11 @@ export default function KakaoMarkerMap() {
         maps.event.addListener(marker, 'mouseout', function () {
           infowindow.close()
         })
+
+        // TODO, click 했을 때 리뷰를 추가할 수 있는 폼 제공
       })(marker, infowindow)
     }
-  })
+  }, [data])
 
   return (
     <>
