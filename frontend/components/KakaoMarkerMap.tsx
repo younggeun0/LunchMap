@@ -56,7 +56,7 @@ export default function KakaoMarkerMap({data}: any) {
       return {
         content: `<div class="p-3 text-center" style="min-width:300px;">
             <div class="pb-3">
-              ${info.name} ${averageRating}점 ${icon}
+              ${info.name} ${isNaN(averageRating) ? '' : averageRating + '점'} ${icon}
             </div>
             ${reviewDiv}
           </div>`,

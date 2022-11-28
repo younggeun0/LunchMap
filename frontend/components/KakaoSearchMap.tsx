@@ -82,7 +82,7 @@ export default function KakaoSearchMap() {
       latitude: place.y,
     })
 
-    alert(`${place.place_name}이 새로운 식당으로 등록됐습니다!`)
+    alert(`[${place.place_name}]이 새로운 식당으로 등록됐습니다!`)
   }
 
   const onChange = (event: any) => {
