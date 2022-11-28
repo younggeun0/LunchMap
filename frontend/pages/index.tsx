@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import KakaoMap from 'components/KakaoMarkerMap'
+import KakaoMarkerMap from 'components/KakaoMarkerMap'
 import Head from 'next/head'
 import Button from 'react-bootstrap/Button'
 import Link from 'next/link'
@@ -34,10 +34,10 @@ export default function Home({restaurants}: any) {
 
       <main>
         <h1>{title}</h1>
-        <KakaoMap data={restaurants} />
+        <KakaoMarkerMap data={restaurants} />
         <div className="mt-3 d-flex justify-content-start">
           <Link href="/add">
-            <Button variant="primary">새 식당 추가</Button>
+            <Button variant="outline-success">식당 추가</Button>
           </Link>
         </div>
       </main>

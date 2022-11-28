@@ -1,8 +1,11 @@
 import Head from 'next/head'
 import React, {useEffect} from 'react'
+import {Button} from 'react-bootstrap'
 
-export default function KakaoSearchMap() {
+export default function KakaoSearchMap({ data }: any) {
   useEffect(() => {
+    // TODO 식당 검색 기능 추가
+    // https://apis.map.kakao.com/web/sample/keywordBasic/
     const maps = window.kakao.maps
     const mapContainer = document.getElementById('map'), // 지도를 표시할 div
       mapOption = {
@@ -68,7 +71,13 @@ export default function KakaoSearchMap() {
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APPKEY}`}
         ></script>
       </Head>
-      <div id="map" className="rounded-3 m-3" style={{width: '500px', height: '600px'}}></div>
+      <div>
+        <input type="text" placeholder="검색할 식당을 입력하세요" />
+        <Button className="ms-3" variant="outline-primary">
+          검색
+        </Button>
+      </div>
+      <div id="map" className="border border-dark rounded-3 m-3" style={{width: '500px', height: '600px'}}></div>
     </>
   )
 }

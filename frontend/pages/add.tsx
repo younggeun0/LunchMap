@@ -1,17 +1,28 @@
 import KakaoMap from 'components/KakaoMarkerMap'
 import KakaoSearchMap from 'components/KakaoSearchMap'
+import Head from 'next/head'
+import Link from 'next/link'
 import React from 'react'
+import {Button} from 'react-bootstrap'
+
+const title = '식당 추가 🍽️'
 
 export default function AddRestaurant() {
   return (
-    <>
-      <div>
-        <h1>식당 추가</h1>
-      </div>
-      <div>
+    <div className="container">
+      <Head>
+        <title>{title}</title>
+      </Head>
+
+      <main>
+        <h1>{title}</h1>
         <KakaoSearchMap />
-        <input type="text" placeholder="식당 이름을 입력하세요" />
-      </div>
-    </>
+        <div className="mt-3 d-flex justify-content-start">
+          <Link href="/">
+            <Button className="me-3" variant="outline-success">리뷰 보기 😋</Button>
+          </Link>
+        </div>
+      </main>
+    </div>
   )
 }

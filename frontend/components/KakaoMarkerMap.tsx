@@ -2,6 +2,12 @@ import dayjs from 'dayjs'
 import Head from 'next/head'
 import React, {useEffect} from 'react'
 
+const ratingIcon = {
+  GOOD: '👍',
+  SOSO: '🤷',
+  BAD: '👎',
+}
+
 export default function KakaoMarkerMap({data}: any) {
   useEffect(() => {
     const maps = window.kakao.maps
@@ -20,6 +26,15 @@ export default function KakaoMarkerMap({data}: any) {
           return acc + cur.rating
         }, 0) / info.review_set.length
 
+      let icon = ''
+      if (averageRating >= 4) {
+        icon = ratingIcon.GOOD
+      } else if (averageRating >= 2) {
+        icon = ratingIcon.SOSO
+      } else {
+        icon = ratingIcon.BAD
+      }
+
       const reviewDiv = info.review_set
         ? info.review_set.reduce((acc: string, review: any) => {
             return (
@@ -37,10 +52,12 @@ export default function KakaoMarkerMap({data}: any) {
         : ''
 
       return {
-        content:
-          `<div class="p-3 text-center" style="min-width:300px;">
-            ${info.name} ${averageRating}점
-          </div>` + reviewDiv,
+        content: `<div class="p-3 text-center" style="min-width:300px;">
+            <div class="pb-3">
+              ${info.name} ${averageRating}점 ${icon}
+            </div>
+            ${reviewDiv}
+          </div>`,
         latlng: new maps.LatLng(info.latitude, info.longitude),
       }
     })
@@ -83,7 +100,7 @@ export default function KakaoMarkerMap({data}: any) {
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APPKEY}`}
         ></script>
       </Head>
-      <div id="map" className="rounded-3 m-3" style={{width: '500px', height: '600px'}}></div>
+      <div id="map" className="border border-dark rounded-3 m-3" style={{width: '500px', height: '600px'}}></div>
     </>
   )
 }
