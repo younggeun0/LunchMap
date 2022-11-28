@@ -129,3 +129,5 @@ jspm_packages
 .next
 
 .env
+
+.vscode
