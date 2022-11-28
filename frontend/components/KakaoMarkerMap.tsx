@@ -27,12 +27,14 @@ export default function KakaoMarkerMap({data}: any) {
         }, 0) / info.review_set.length
 
       let icon = ''
-      if (averageRating >= 4) {
-        icon = ratingIcon.GOOD
-      } else if (averageRating >= 2) {
-        icon = ratingIcon.SOSO
-      } else {
-        icon = ratingIcon.BAD
+      if (!isNaN(averageRating)) {
+        if (averageRating >= 4) {
+          icon = ratingIcon.GOOD
+        } else if (averageRating >= 2) {
+          icon = ratingIcon.SOSO
+        } else {
+          icon = ratingIcon.BAD
+        }
       }
 
       const reviewDiv = info.review_set
