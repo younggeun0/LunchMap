@@ -94,7 +94,7 @@ export default function KakaoSearchMap() {
       <Head>
         <script
           type="text/javascript"
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APPKEY}&libraries=services`}
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APPKEY}&libraries=services,clusterer,drawing`}
         ></script>
       </Head>
       <div>

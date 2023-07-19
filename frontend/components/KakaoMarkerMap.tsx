@@ -102,7 +102,7 @@ export default function KakaoMarkerMap({data}: any) {
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APPKEY}`}
         ></script>
       </Head>
-      <div id="map" className="border border-dark rounded-3 m-3" style={{width: '500px', height: '600px'}}></div>
+      <div id="map" className={`border border-dark rounded-3 m-3 ${data.length == 0 ? 'd-none' : '' }`} style={{width: '500px', height: '600px' }}></div>
     </>
   )
 }
